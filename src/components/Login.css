@@ -1,0 +1,55 @@
+.login {
+  font: 14px Arial, Helvetica, sans-serif;
+  background-color: #ebdef9;
+  height: 100%;
+  display: flex;
+  color: rgb(31, 74, 90);
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.login_p_tags {
+  display: flex;
+  flex-direction: column;
+}
+
+.greeting {
+  inline-size: 325px;
+  align-self: center;
+  overflow-wrap: break-word;
+  margin-bottom: 50px;
+}
+
+.account_p {
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 50px;
+}
+
+.signin_btn {
+  background: rgb(31, 74, 90);
+  color: white;
+  font-size: 13px;
+  margin-left: 10px;
+  padding: 10px;
+  border-radius: 14px;
+  border: none;
+}
+
+.signup_btn {
+  background: rgb(31, 74, 90);
+  color: white;
+  padding: 10px 18px 10px 18px;
+  border-radius: 14px;
+  border: none;
+}
+
+.signin_btn:active,
+.signup_btn:active {
+  background: rgb(46, 109, 132);
+}
+
+.terms {
+  margin-top: 100px;
+}

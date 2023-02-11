@@ -1,0 +1,40 @@
+.modal_container {
+  display: none;
+}
+
+.icon_div {
+  text-align: center;
+}
+
+.message_div {
+  text-align: center;
+  padding: 35px 20px 20px 20px;
+  margin-top: -20px;
+  margin-bottom: 2px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-image: -webkit-radial-gradient(50% 0, circle, transparent 27px, rgb(241, 241, 241) 0px);
+}
+
+.paragraph_div {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 17px 50px 10px 50px;
+  background-color: rgb(241, 241, 241);
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.consent_button {
+  width: 200px;
+  height: 40px;
+  border-radius: 20px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  background-color: rgb(241, 241, 241);
+  border: none;
+}
+
+.consent_button:active {
+  background-color: #ceceff;
+}

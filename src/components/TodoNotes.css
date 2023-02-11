@@ -1,0 +1,56 @@
+.add_button {
+  position: absolute;
+  top: 280px;
+  left: 80px;
+  border: none;
+  background-color: #fbfafc;
+  border-radius: 20px;
+  width: 100px;
+  height: 34px;
+}
+
+.sticky_notes_div {
+  position: absolute;
+  top: 320px;
+  left: 80px;
+  height: 200px;
+  width: 600px;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+.todo-div {
+  /* background-color: rgb(220, 220, 220); */
+  /* background-color: #ebdef9; */
+  background-color: #ef98be;
+}
+
+.todo-item {
+  padding: 15px 10px 10px 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.checkbox {
+  position: absolute;
+  right: 50px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0 !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #999;
+  background-color: #bbc3ba;
+}
+
+.trash {
+  position: absolute;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+}

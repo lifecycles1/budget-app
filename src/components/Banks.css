@@ -1,0 +1,171 @@
+.banks_page_container {
+  height: calc(100vh - 80px);
+  background-color: #ebdef9;
+}
+
+.tab_container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #ebdef9;
+}
+
+.tab_buttons {
+  display: flex;
+}
+
+.tabs {
+  padding: 15px;
+  text-align: center;
+  background-color: rgb(254, 253, 255);
+  width: 50%;
+  cursor: pointer;
+  box-sizing: content-box;
+  position: relative;
+  border: none;
+  box-shadow: 0px 2px 5px #ebdef9;
+  font-size: 20px;
+}
+
+.active_tabs {
+  background-color: #7972a0;
+  color: white;
+}
+
+.content_tabs {
+  flex-grow: 1;
+  margin-bottom: 20px;
+}
+
+.content {
+  background-color: #ebdef9;
+  padding: 20px;
+  height: 100%;
+  display: none;
+}
+
+.active_content {
+  display: block;
+}
+
+.bank_search_div {
+  position: relative;
+}
+
+.bank_search {
+  width: 400px;
+  height: 32px;
+  padding: 0px 40px;
+  margin-bottom: 7px;
+  outline: none;
+  border: none;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.bank_search:hover {
+  background-color: #f1f1f1;
+}
+
+.search_icon {
+  position: absolute;
+  left: 15px;
+  top: 9px;
+}
+
+.header_msg {
+  position: absolute;
+  color: rgb(31, 74, 90);
+  left: 515px;
+  top: -8px;
+  padding: 10px 20px;
+}
+
+/* triangular small dot shaped border pointing downwards to content */
+.header_msg::after {
+  content: "";
+  position: absolute;
+  top: 92%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgb(31, 74, 90) transparent transparent transparent;
+}
+
+.investments_header_msg {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding-bottom: 10px;
+  width: 190px;
+  color: rgb(31, 74, 90);
+}
+
+/* triangular small dot shaped border pointing downwards to content */
+.investments_header_msg::after {
+  content: "";
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgb(31, 74, 90) transparent transparent transparent;
+}
+
+.bank_content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  padding: 10px;
+  cursor: default;
+}
+
+.bank {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #7972a0;
+  color: white;
+  width: 280px;
+  height: 60px;
+  border-radius: 5px;
+}
+
+.bank:hover {
+  background-color: #4c4863;
+}
+
+.bank_logo {
+  position: absolute;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+
+.bank_text {
+  margin-left: 30px;
+}
+
+.footer_note {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: rgb(31, 74, 90);
+}
+
+.investment_type_div {
+  position: absolute;
+  top: 2px;
+  right: 10px;
+  font-size: 10px;
+}

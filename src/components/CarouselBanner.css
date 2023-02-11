@@ -1,0 +1,32 @@
+.login_carousel_container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  width: 80vw;
+}
+
+.picture_container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.pic_div {
+  background-image: url("app_logos/budget-app1.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 200px;
+  height: 200px;
+}
+
+.pic_div1 {
+  background-image: url("app_logos/budget-app2.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 200px;
+  height: 200px;
+}
