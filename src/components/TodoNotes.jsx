@@ -10,12 +10,30 @@ function TodoNotes() {
   ]);
 
   React.useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:3001/todos");
-      const todos = await response.json();
-      setTodoItems(todos);
+    // const response = await fetch("http://localhost:3001/todos");
+    // const todos = await response.json();
+    const email = sessionStorage.getItem("user");
+    const data = { email: email };
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "http://localhost:3001/getTodos", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(data));
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var response = this.responseText;
+        const responseJSON = JSON.parse(response);
+        if (responseJSON.status === "success") {
+          delete responseJSON.status;
+          delete responseJSON.email;
+          delete responseJSON._id;
+          console.log(responseJSON);
+          // convert object to array
+          const arr = Object.keys(responseJSON).map((key) => responseJSON[key]);
+          console.log(arr);
+          setTodoItems(arr);
+        }
+      }
     };
-    fetchData();
   }, []);
 
   const addItem = () => {
@@ -24,6 +42,21 @@ function TodoNotes() {
 
   const removeItem = (id) => {
     setTodoItems(todoItems.filter((item) => item.id !== id));
+    const email = sessionStorage.getItem("user");
+    const data = { email: email, todo: { id: id } };
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "http://localhost:3001/deleteTodo", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(data));
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        var response = this.responseText;
+        const responseJSON = JSON.parse(response);
+        if (responseJSON.status === "todo deleted") {
+          console.log("deleted");
+        }
+      }
+    };
   };
 
   const handleItemClick = (index) => {
@@ -37,6 +70,10 @@ function TodoNotes() {
     );
   };
 
+  // need to add an if statement that checks if the todo already exists and needs to be updated instead
+  // of adding a new one every time.
+  // could be implemented by checking if the todo value is the default one -> then add a new one to db
+  // and if not default value that means it has already been added to db and needs to be updated
   const handleSave = (index, value) => {
     const email = sessionStorage.getItem("user");
     const doc = {
@@ -46,7 +83,6 @@ function TodoNotes() {
     const xhttp = new XMLHttpRequest();
     xhttp.open("POST", "http://localhost:3001/todos", true);
     xhttp.setRequestHeader("Content-Type", "application/json");
-    // xhttp.send(JSON.stringify({ todo: todoItems[index] }));
     xhttp.send(JSON.stringify(doc));
 
     setTodoItems(

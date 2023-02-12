@@ -395,6 +395,7 @@ app.all("/getIncome", async (req, res) => {
   }
 });
 
+// save the user's todo list to the database
 app.all("/todos", async (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "POST");
@@ -410,6 +411,116 @@ app.all("/todos", async (req, res) => {
     console.log(doc);
     // post this to mongo db here
     // -------------------------->
+    try {
+      await mongo.connect();
+      const db = mongo.db("test");
+      const collection = db.collection("todos");
+      await collection.insertOne(doc);
+      res.status(200).json("todo saved");
+    } catch (e) {
+      return res.status(500).json({ error: e.message });
+    } finally {
+      await mongo.close();
+    }
+  }
+});
+
+// get todos from mongo db
+app.all("/getTodos", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "POST");
+  res.header("Access-Control-Allow-Headers", req.header("access-control-request-headers"));
+  if (req.method === "OPTIONS") {
+    res.send();
+  } else if (req.method === "POST") {
+    const email = req.body?.email;
+    try {
+      // await connect to mongo
+      await mongo.connect();
+      // set to "test" database in the online cluster
+      const db = mongo.db("test");
+      // set to "charts" collection in the "test" database
+      const collection = db.collection("todos");
+      // retrieve one document with the users email
+      const doc = await collection.find({ email }).toArray();
+      // change and delete the "inputValue" key to "text" because the react-todo-list package uses "text" as the key
+      const newDoc = doc.map((item) => {
+        item.text = item.inputValue;
+        delete item.inputValue;
+        return item;
+      });
+      // adds a status of "success" to the retrieved object
+      const data = { status: "success", ...newDoc };
+      // sends the new object back to the client
+      res.status(200).json(data);
+    } catch (e) {
+      // if error , returns the error message to the client
+      return res.status(500).json({ error: e.message });
+    }
+  }
+});
+
+// delete a todo from the database
+app.all("/deleteTodo", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "POST");
+  res.header("Access-Control-Allow-Headers", req.header("access-control-request-headers"));
+  if (req.method === "OPTIONS") {
+    res.send();
+  } else if (req.method === "POST") {
+    const doc = {
+      email: req.body?.email,
+      id: req.body?.todo?.id,
+    };
+    try {
+      await mongo.connect();
+      const db = mongo.db("test");
+      const collection = db.collection("todos");
+      await collection.deleteOne(doc);
+      res.status(200).json("todo deleted");
+    } catch (e) {
+      return res.status(500).json({ error: e.message });
+    } finally {
+      await mongo.close();
+    }
+  }
+});
+
+// update a todo in the database
+// this route is not working yet
+// because the react-todo-list package does not have a way to update a todo.
+// the (addItem) usually just adds a default todo on the screen and the actual post to database is done
+// in the (handleSave) function which usually triggers when the users edits the todo.
+// So either some major logic needs to change or the (edit) (handleSave) method that usually saves the todo
+// to the database needs to add an if statement to check if the todo already exists in the database and if
+// it does then update the todo instead of adding a new one.
+app.all("/updateTodo", async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "POST");
+  res.header("Access-Control-Allow-Headers", req.header("access-control-request-headers"));
+  if (req.method === "OPTIONS") {
+    res.send();
+  } else if (req.method === "POST") {
+    const doc = {
+      email: req.body?.email,
+      id: req.body?.todo,
+      inputValue: req.body?.todo?.inputValue,
+    };
+    try {
+      await mongo.connect();
+      const db = mongo.db("test");
+      const collection = db.collection("todos");
+      // update the todo with the new input value
+      // the $set operator replaces the value of a field with the specified value
+      // the $eq operator matches values that are equal to a specified value
+      // the $and operator matches all the specified conditions
+      await collection.updateOne({ $and: [{ email: doc.email }, { id: doc.id }] }, { $set: { inputValue: doc.inputValue } });
+      res.status(200).json("todo updated");
+    } catch (e) {
+      return res.status(500).json({ error: e.message });
+    } finally {
+      await mongo.close();
+    }
   }
 });
 
